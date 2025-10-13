@@ -1,24 +1,30 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './styles/index.css'
-import Home from './pages/Home.jsx'
-import Productos from './pages/Productos.jsx'
-import { HashRouter, Route, Routes } from 'react-router-dom'
-import Producto from './pages/Producto.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./styles/index.css";
+import Layout from "./components/Layout";
+import Home from "./pages/Home.jsx";
+import Login from "./pages/Login.jsx";
+import Registro from "./pages/Registro.jsx";
+import Productos from "./pages/Productos.jsx";
 
-localStorage.setItem('usuario', 'jesus.vargas@tinet.cl');
 
-createRoot(document.getElementById('root')).render(
+import { HashRouter, Route, Routes } from "react-router-dom";
+
+localStorage.setItem("usuario", "jesus.vargas@tinet.cl");
+
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-
     <HashRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/productos" element={<Productos />} />
-        <Route path="/producto/:id" element={<Producto />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/registro" element={<Registro />} />
+          <Route path="/productos" element={<Productos />} />
+        </Route>
       </Routes>
     </HashRouter>
-
   </StrictMode>
-)
+);
+

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Hero() {
   return (
     <section className="hero">
@@ -7,13 +9,13 @@ function Hero() {
           Ofrece una experiencia dulce y memorable a nuestros clientes, 
           proporcionando tortas y productos de repostería de alta calidad...
         </p>
+          <Link className="hero-boton" to="/productos">Productos</Link>
+          <Link className="hero-boton" to="/login">Iniciar Sesión</Link>
+          <Link className="hero-boton" to="/registro">Registrarse</Link>
 
-        <a href="/productos" className="hero-boton">Ver todos los productos</a>
-        <a href="/login" className="hero-boton">Iniciar sesión</a>
-        <a href="/registro" className="hero-boton">Registrarse</a>
       </div>
-      <div className="hero-media">
-        <img src="/assets/images/pastel_hero.png" alt="pastel" />
+      <div className="hero-foto">
+        <img src="src\assets\images\pastel_hero.png" alt="pastel" />
       </div>
     </section>
   );

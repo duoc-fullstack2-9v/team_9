@@ -1,20 +1,26 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
 function Navbar() {
   return (
     <header>
       <nav className="navbar">
-        <img src="/assets/images/logo.png" width="60" alt="Logo" />
+        <img src="src\assets\images\logo.png" width="60" alt="Logo" />
+
         <ul className="nav-links">
-          <li><a className="nav-link" href="/">Inicio</a></li>
-          <li><a className="nav-link" href="/productos">Productos</a></li>
-          <li><a className="nav-link" href="/login">Iniciar Sesión</a></li>
-          <li><a className="nav-link" href="/contacto">Contacto</a></li>
-          <li><a className="nav-link" href="/nosotros">Sobre Nosotros</a></li>
-          <li><a className="nav-link" href="/blog">Blog</a></li>
+          <li><Link className="nav-link" to="/">Inicio</Link></li>
+          <li><Link className="nav-link" to="/productos">Productos</Link></li>
+          <li><Link className="nav-link" to="/login">Iniciar Sesión</Link></li>
+          <li><Link className="nav-link" to="/registro">Registrarse</Link></li>
+          <li><Link className="nav-link" to="/contacto">Contacto</Link></li>
+          <li><Link className="nav-link" to="/nosotros">Sobre Nosotros</Link></li>
+          <li><Link className="nav-link" to="/blog">Blog</Link></li>
         </ul>
-        <a href="/carrito" className="cart">
-          <img src="/assets/images/carrito.png" width="30" alt="Carrito" />
+
+        <Link to="/carrito" className="cart">
+          <img src="src\assets\images\carrito.png" width="30" alt="Carrito" />
           <span>Carro (0)</span>
-        </a>
+        </Link>
       </nav>
     </header>
   );
