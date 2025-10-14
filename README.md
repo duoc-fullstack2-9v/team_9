@@ -1,16 +1,39 @@
-# React + Vite
+# Entrega 1
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Se utilizo React + Vite como lo mostrado en clase y en el repositorio entregado por el profesor
 
-Currently, two official plugins are available:
+# Descripcion de entrega
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Se configuro el proyecto para mostrar las siguientes vistas: 
 
-## React Compiler
+## Home
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Se configuro el Home para mostrar la tienda, un Hero el cual contiene botones que llevan al inicio de sesion y registro, asi como tambien, una imagen y descripcion de los productos. Por otro lado, se muestra una vista de los productos.
 
-## Expanding the ESLint configuration
+![alt text](src\assets\images\image.png)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Productos
+
+La pagina de productos se configuro para permitir mostrar pasteles, asi como tambien, filtros para categorizarlos, esta es una funcionalidad que esta en proceso de desarrollo
+
+![alt text](src\assets\images\image-2.png)
+
+## Inicio de Sesion
+
+Se configuro el inicio de sesion, el cual permite entrar con la credencial:
+
+```
+    const testEmail = "rparra@duoc.cl";
+    const testPass = "123456";
+```
+
+Sin embargo, no se tiene aun una vista del panel adminsitrativo, es una funcionalidad demo.
+
+![alt text](src\assets\images\image-3.png)
+
+## Registro
+
+Se creo un registro que contiene validaciones basicas.
+
+![alt text](src\assets\images\image-4.png)
+
