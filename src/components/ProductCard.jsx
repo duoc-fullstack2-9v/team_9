@@ -1,3 +1,5 @@
+import React from "react";
+
 // src/components/ProductCard.jsx
 function ProductCard({ id, img, titulo, precio, onAdd }) {
   return (

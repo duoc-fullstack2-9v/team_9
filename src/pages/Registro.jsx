@@ -56,8 +56,6 @@ export default function Registro() {
 
     // Simulación de registro
     setError("Registro enviado. ¡Gracias!");
-    // Aquí podrías redirigir o limpiar el formulario:
-    // limpiar campos:
     setNombre(""); setCorreo(""); setCorreo2("");
     setClave(""); setClave2("");
     setRegion("");

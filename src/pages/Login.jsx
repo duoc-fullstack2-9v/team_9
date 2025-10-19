@@ -27,7 +27,7 @@ export default function Login() {
 
     if (correo === testEmail && clave === testPass) {
       setError("Sesión iniciada");
-      // redirigir al admin (puedes usar react-router o window.location)
+      // redirigir al admin
       window.location.href = "/admin";
     } else {
       setError("Correo o contraseña incorrectos.");
