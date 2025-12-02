@@ -1,15 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+// Para desarrollo local:
+const API_URL = "http://54.80.154.229:8080/api/usuarios/login";
+// Cuando lo tengas en el servidor público, cambias a:
+// const API_URL = "http://54.80.154.229:8080/api/usuarios/login";
 
 export default function Login() {
-  // Estados locales para mantener los valores del formulario
   const [correo, setCorreo] = useState("");
   const [clave, setClave] = useState("");
-  const [error, setError] = useState("");  // mensaje de error a mostrar
+  const [error, setError] = useState("");
+  const [cargando, setCargando] = useState(false);
 
-  // Función que se ejecuta al enviar el formulario
-  function handleSubmit(e) {
-    e.preventDefault();           // evitar recarga de página
-    setError("");                  // limpiar mensaje previo
+  const navigate = useNavigate();
+
+  // Si ya hay sesión guardada, redirigir al admin
+  useEffect(() => {
+    const usuarioGuardado = localStorage.getItem("usuario");
+    if (usuarioGuardado) {
+      navigate("/admin");
+    }
+  }, [navigate]);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError("");
 
     // Validaciones simples
     if (correo.trim() === "") {
@@ -21,23 +37,39 @@ export default function Login() {
       return;
     }
 
-    // Validación demo: credenciales de prueba
-    const testEmail = "rparra@duoc.cl";
-    const testPass = "123456";
+    setCargando(true);
+    try {
+      const payload = {
+        correo: correo,
+        contrasena: clave, // OJO: debe coincidir con el backend
+      };
 
-    if (correo === testEmail && clave === testPass) {
-      setError("Sesión iniciada");
-      // redirigir al admin
-      window.location.href = "/admin";
-    } else {
-      setError("Correo o contraseña incorrectos.");
+      const resp = await axios.post(API_URL, payload);
+
+      // Si llega aquí, el login fue exitoso (200 OK)
+      // Guardamos el usuario en localStorage para mantener sesión
+      localStorage.setItem("usuario", JSON.stringify(resp.data));
+
+      // Limpia error y redirige
+      setError("");
+      navigate("/admin");
+    } catch (err) {
+      console.error(err);
+
+      if (err.response && err.response.status === 401) {
+        setError("Correo o contraseña incorrectos.");
+      } else {
+        setError("No se pudo conectar con el servidor.");
+      }
+    } finally {
+      setCargando(false);
     }
   }
 
   return (
     <main className="container login-page">
       <div className="login-brand">
-        <img src="src\assets\images\logo.png" alt="Logo" />
+        <img src="/logo.png" alt="Logo" />
         <h1 className="brand-name">Pastelería Mil Sabores</h1>
       </div>
 
@@ -63,11 +95,18 @@ export default function Login() {
           />
 
           <div className="inicio-sesion-registro">
-            <button type="submit" className="btn-login">Iniciar sesión</button>
-            <a href="/registro" className="btn-registrar">Regístrate ahora!</a>
+            <button type="submit" className="btn-login" disabled={cargando}>
+              {cargando ? "Ingresando..." : "Iniciar sesión"}
+            </button>
+            <Link className="btn-registrar" to="/registro">Registrarse</Link>
           </div>
 
-          <small id="login-estado" className={`estado ${error ? "" : "oculto"}`}>{error}</small>
+          <small
+            id="login-estado"
+            className={`estado ${error ? "" : "oculto"}`}
+          >
+            {error}
+          </small>
         </form>
       </section>
     </main>

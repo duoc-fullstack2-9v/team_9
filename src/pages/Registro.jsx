@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import axios from "axios";
+
+const API_URL = "http://54.80.154.229:8080/api/usuarios";
 
 export default function Registro() {
   const [nombre, setNombre] = useState("");
@@ -9,6 +12,8 @@ export default function Registro() {
   const [region, setRegion] = useState("");
   const [comuna, setComuna] = useState("");
   const [error, setError] = useState("");
+  const [exito, setExito] = useState("");
+  const [cargando, setCargando] = useState(false);
 
   const regiones = {
     "Región Metropolitana de Santiago": ["Santiago", "Ñuñoa", "Puente Alto"],
@@ -21,10 +26,12 @@ export default function Registro() {
     setComuna(""); // reiniciar comuna cuando cambia la región
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     setError("");
+    setExito("");
 
+    // Validaciones front
     if (nombre.trim() === "") {
       setError("Ingresa tu nombre.");
       return;
@@ -54,12 +61,45 @@ export default function Registro() {
       return;
     }
 
-    // Simulación de registro
-    setError("Registro enviado. ¡Gracias!");
-    setNombre(""); setCorreo(""); setCorreo2("");
-    setClave(""); setClave2("");
-    setRegion("");
-    setComuna("");
+    // Ahora sí: llamar al backend
+    setCargando(true);
+    try {
+      const payload = {
+        nombre: nombre,
+        correo: correo,
+        contrasena: clave      // OJO: el backend espera "contrasena"
+      };
+
+      const respuesta = await axios.post(API_URL, payload);
+
+      console.log("Usuario creado:", respuesta.data);
+
+      setExito("Registro exitoso. ¡Gracias por registrarte!");
+      // limpiar formulario
+      setNombre("");
+      setCorreo("");
+      setCorreo2("");
+      setClave("");
+      setClave2("");
+      setRegion("");
+      setComuna("");
+    } catch (err) {
+      console.error(err);
+
+      if (err.response) {
+        // El backend respondió con un status != 2xx
+        if (err.response.status === 409) {
+          setError("Ya existe un usuario con ese correo.");
+        } else {
+          setError("Error en el registro. Intenta nuevamente.");
+        }
+      } else {
+        // Error de red o no hay respuesta del servidor
+        setError("No se pudo conectar con el servidor.");
+      }
+    } finally {
+      setCargando(false);
+    }
   }
 
   return (
@@ -122,9 +162,15 @@ export default function Registro() {
           ))}
         </select>
 
-        <button type="submit" className="btn-registrar">Registrarse</button>
-        <small className={`estado ${error ? "" : "oculto"}`}>{error}</small>
+        <button type="submit" className="btn-registrar" disabled={cargando}>
+          {cargando ? "Registrando..." : "Registrarse"}
+        </button>
+
+        {/* Mensajes */}
+        {error && <small className="estado error">{error}</small>}
+        {exito && <small className="estado exito">{exito}</small>}
       </form>
     </main>
   );
 }
+

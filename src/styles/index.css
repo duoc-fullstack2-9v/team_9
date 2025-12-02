@@ -674,3 +674,19 @@ h1, h2, h3 {
   background: #ffffff;
   border: 5px solid #dcdcdc;
 }
+
+.saludo {
+  font-weight: bold;
+  color: #ff4f81;
+}
+
+.btn-logout {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #db3939;
+  font-weight: bold;
+}
+.btn-logout:hover {
+  text-decoration: underline;
+}

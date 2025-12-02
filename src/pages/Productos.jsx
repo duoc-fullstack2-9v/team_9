@@ -3,10 +3,10 @@ import ProductCard from "../components/ProductCard";
 import { useCart } from "../context/CartContext";
 
 const productosData = [
-  { id: 1, img: "src/assets/images/pastel-1.png", titulo: "Torta Cuadrada de Chocolate", precio: "CLP 10.000", tipo: "cuadrada" },
-  { id: 2, img: "src/assets/images/pastel-2.png", titulo: "Torta Cuadrada de Frutas",   precio: "CLP 10.000", tipo: "cuadrada" },
-  { id: 3, img: "src/assets/images/pastel-1.png", titulo: "Torta Circular de Vainilla",  precio: "CLP 10.000", tipo: "circular" },
-  { id: 4, img: "src/assets/images/pastel-2.png", titulo: "Torta Circular de Manjar",    precio: "CLP 10.000", tipo: "circular" },
+  { id: 1, img: "/pastel-1.png", titulo: "Torta Cuadrada de Chocolate", precio: "CLP 10.000", tipo: "cuadrada" },
+  { id: 2, img: "/pastel-2.png", titulo: "Torta Cuadrada de Frutas",   precio: "CLP 10.000", tipo: "cuadrada" },
+  { id: 3, img: "/pastel-1.png", titulo: "Torta Circular de Vainilla",  precio: "CLP 10.000", tipo: "circular" },
+  { id: 4, img: "/pastel-2.png", titulo: "Torta Circular de Manjar",    precio: "CLP 10.000", tipo: "circular" },
 ];
 
 export default function Productos() {
