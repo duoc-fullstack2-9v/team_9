@@ -37,3 +37,37 @@ Se creo un registro que contiene validaciones basicas.
 
 ![alt text](image-4.png)
 
+# CRUD
+
+```
+[Página Productos.jsx]
+        │
+        │  (1) Usuario hace clic en "Agregar al carrito"
+        ▼
+ [ProductCard.jsx]
+        │
+        │  (2) Llama a → addItem(producto)
+        ▼
+ [CartContext.jsx]  ←───  useCart()
+        │
+        │  (3) Guarda el producto en el estado global (cartItems)
+        │
+        │  (4) Usa useEffect() para guardar el carrito en localStorage
+        ▼
+ ┌──────────────────────────────┐
+ │ localStorage del navegador   │
+ │ ("cartItems")                │
+ └──────────────────────────────┘
+        │
+        │  (5) Cuando se abre la app o el usuario va al carrito
+        ▼
+ [Carrito.jsx]
+        │
+        │  (6) Lee los datos desde useCart()
+        │
+        │  (7) Muestra los productos, cantidades y total
+        ▼
+ (Usuario puede ↑ aumentar ↓ disminuir o eliminar)
+        │
+        └──────► Cambios se reflejan otra vez en CartContext y localStorage
+```

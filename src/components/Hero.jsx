@@ -17,7 +17,7 @@ function Hero() {
 
       </div>
       <div className="hero-foto">
-        <img src="src\assets\images\pastel_hero.png" alt="pastel" />
+        <img src="src/assets/images/pastel_hero.png" alt="pastel" />
       </div>
     </section>
   );

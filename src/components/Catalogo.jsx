@@ -2,7 +2,7 @@ import React from "react";
 import ProductCard from "./ProductCard";
 
 const productos = [
-  { img: "/src/assets/images/pastel-1.png", titulo: "Torta Cuadrada de Chocolate", precio: "CLP 10.000" },
+  { img: "src/assets/images/pastel-1.png", titulo: "Torta Cuadrada de Chocolate", precio: "CLP 10.000" },
 ];
 
 function Catalogo() {

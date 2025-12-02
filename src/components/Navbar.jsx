@@ -5,7 +5,7 @@ function Navbar() {
   return (
     <header>
       <nav className="navbar">
-        <img src="src\assets\images\logo.png" width="60" alt="Logo" />
+        <img src="src/assets/images/logo.png" width="60" alt="Logo" />
 
         <ul className="nav-links">
           <li><Link className="nav-link" to="/">Inicio</Link></li>
@@ -18,7 +18,7 @@ function Navbar() {
         </ul>
 
         <Link to="/carrito" className="cart">
-          <img src="src\assets\images\carrito.png" width="30" alt="Carrito" />
+          <img src="src/assets/images/carrito.png" width="30" alt="Carrito" />
           <span>Carro (0)</span>
         </Link>
       </nav>
