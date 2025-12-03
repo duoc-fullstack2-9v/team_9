@@ -9,10 +9,9 @@ import Login from "./pages/Login.jsx";
 import Registro from "./pages/Registro.jsx";
 import Productos from "./pages/Productos.jsx";
 import Carrito from "./pages/Carrito.jsx";
+import Admin from "./pages/Admin";
 
 import { HashRouter, Route, Routes } from "react-router-dom";
-
-localStorage.setItem("usuario", "jesus.vargas@tinet.cl");
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -26,6 +25,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/registro" element={<Registro />} />
           <Route path="/productos" element={<Productos />} />
           <Route path="/carrito" element={<Carrito />} />
+          <Route path="/admin" element={<Admin />} />
         </Route>
       </Routes>
     </HashRouter>

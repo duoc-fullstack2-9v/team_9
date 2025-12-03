@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-// Para desarrollo local:
 const API_URL = "http://54.80.154.229:8080/api/usuarios/login";
-// Cuando lo tengas en el servidor público, cambias a:
-// const API_URL = "http://54.80.154.229:8080/api/usuarios/login";
+// o la URL de tu server público cuando lo uses
 
 export default function Login() {
   const [correo, setCorreo] = useState("");
@@ -15,19 +13,10 @@ export default function Login() {
 
   const navigate = useNavigate();
 
-  // Si ya hay sesión guardada, redirigir al admin
-  useEffect(() => {
-    const usuarioGuardado = localStorage.getItem("usuario");
-    if (usuarioGuardado) {
-      navigate("/admin");
-    }
-  }, [navigate]);
-
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
 
-    // Validaciones simples
     if (correo.trim() === "") {
       setError("Ingresa tu correo.");
       return;
@@ -41,18 +30,20 @@ export default function Login() {
     try {
       const payload = {
         correo: correo,
-        contrasena: clave, // OJO: debe coincidir con el backend
+        contrasena: clave,
       };
 
       const resp = await axios.post(API_URL, payload);
 
-      // Si llega aquí, el login fue exitoso (200 OK)
-      // Guardamos el usuario en localStorage para mantener sesión
+      // guardar sesión
       localStorage.setItem("usuario", JSON.stringify(resp.data));
 
-      // Limpia error y redirige
-      setError("");
-      navigate("/admin");
+      if (resp.data.rol === "admin") {
+    navigate("/admin");
+  } else {
+    navigate("/productos");
+  }
+
     } catch (err) {
       console.error(err);
 
@@ -112,3 +103,4 @@ export default function Login() {
     </main>
   );
 }
+

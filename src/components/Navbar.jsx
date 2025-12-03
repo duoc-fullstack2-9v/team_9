@@ -1,15 +1,23 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Navbar() {
-  const navigate = useNavigate();
-
-  // leer usuario guardado en localStorage
-  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  // leer usuario guardado en localStorage de forma segura
+  let usuario = null;
+  const usuarioStr = localStorage.getItem("usuario");
+  if (usuarioStr) {
+    try {
+      usuario = JSON.parse(usuarioStr);
+    } catch (e) {
+      console.error("Error parseando usuario desde localStorage", e);
+      usuario = null;
+    }
+  }
 
   function logout() {
     localStorage.removeItem("usuario");
-    navigate("/login");
+    // redirigir usando el navegador (sin hooks)
+    window.location.href = "/login";
   }
 
   return (
@@ -32,17 +40,27 @@ function Navbar() {
             </>
           )}
 
-          {/* Si SI está logueado */}
+          {/* Si SÍ está logueado */}
           {usuario && (
             <>
               <li className="nav-link saludo">Hola, {usuario.nombre}</li>
               <li>
-                <button className="nav-link btn-logout" onClick={logout}>
+                <button
+                  type="button"
+                  className="nav-link btn-logout"
+                  onClick={logout}
+                  style={{ background: "none", border: "none", cursor: "pointer" }}
+                >
                   Cerrar sesión
                 </button>
               </li>
             </>
           )}
+
+          {usuario?.rol === "admin" && (
+            <li><Link className="nav-link" to="/admin">Panel Admin</Link></li>
+          )}
+
         </ul>
 
         <Link to="/carrito" className="cart">
@@ -55,3 +73,4 @@ function Navbar() {
 }
 
 export default Navbar;
+

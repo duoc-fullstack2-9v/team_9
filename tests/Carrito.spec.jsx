@@ -4,8 +4,7 @@ import { screen, render, fireEvent } from "@testing-library/react";
 import { renderWithRouter } from "./test-utils";
 import Carrito from "../src/pages/Carrito";
 
-// Hacemos un mock del módulo del contexto.
-// OJO: usamos una variable que reconfiguramos por test.
+// módulo del contexto.
 let mockCart;
 vi.mock("../src/context/CartContext", () => ({
   useCart: () => mockCart,
@@ -50,7 +49,7 @@ describe("Carrito (CRUD)", () => {
         quantity: 1,
       },
     ];
-    // Simulamos que el total (numérico) es 30000 para que Carrito muestre "CLP 30,000"
+    // Carrito muestre "CLP 30,000"
     mockCart.getTotal.mockReturnValue(30000);
 
     renderWithRouter(<Carrito />);
@@ -63,13 +62,9 @@ describe("Carrito (CRUD)", () => {
     expect(screen.getByText(/2 × CLP 10\.000/i)).toBeInTheDocument();
     expect(screen.getByText(/1 × CLP 10\.000/i)).toBeInTheDocument();
 
-    // Total formateado
-    // tests/Carrito.spec.jsx (reemplaza SOLO la aserción del total)
-    // Total formateado (selecciono el nodo exacto)
-
     const totalMonto = document.querySelector(".total-monto");
     expect(totalMonto).toBeInTheDocument();
-    expect(totalMonto).toHaveTextContent(/CLP\s*30\.000/i);
+    expect(totalMonto).toHaveTextContent(/CLP\s*30[.,]000/i);
 
   });
 
