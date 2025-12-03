@@ -1,4 +1,7 @@
-function ProductCard({ img, titulo, precio }) {
+import React from "react";
+
+// src/components/ProductCard.jsx
+function ProductCard({ id, img, titulo, precio, onAdd }) {
   return (
     <article className="producto">
       <div className="producto-media">
@@ -8,9 +11,11 @@ function ProductCard({ img, titulo, precio }) {
       <div className="producto-fila">
         <span className="producto-attrs">Precio</span>
         <span className="producto-precio">{precio}</span>
+        <button className="btn-agregar" onClick={onAdd}>
+          Agregar al carrito
+        </button>
       </div>
     </article>
   );
 }
-
 export default ProductCard;

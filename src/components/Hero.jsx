@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Link } from "react-router-dom";
 
 function Hero() {
@@ -15,7 +17,7 @@ function Hero() {
 
       </div>
       <div className="hero-foto">
-        <img src="src\assets\images\pastel_hero.png" alt="pastel" />
+        <img src="/pastel_hero.png" alt="pastel" />
       </div>
     </section>
   );

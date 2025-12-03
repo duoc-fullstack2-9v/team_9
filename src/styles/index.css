@@ -674,3 +674,42 @@ h1, h2, h3 {
   background: #ffffff;
   border: 5px solid #dcdcdc;
 }
+
+.saludo {
+  font-weight: bold;
+  color: #ff4f81;
+}
+
+.btn-logout {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #db3939;
+  font-weight: bold;
+}
+.btn-logout:hover {
+  text-decoration: underline;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.admin-table th,
+.admin-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.admin-table th {
+  background-color: #f3f3f3;
+}
+
+.admin-edit {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}

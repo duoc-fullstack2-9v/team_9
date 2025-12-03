@@ -1,17 +1,22 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
+const API_URL = "http://54.80.154.229:8080/api/usuarios/login";
+// o la URL de tu server público cuando lo uses
 
 export default function Login() {
-  // Estados locales para mantener los valores del formulario
   const [correo, setCorreo] = useState("");
   const [clave, setClave] = useState("");
-  const [error, setError] = useState("");  // mensaje de error a mostrar
+  const [error, setError] = useState("");
+  const [cargando, setCargando] = useState(false);
 
-  // Función que se ejecuta al enviar el formulario
-  function handleSubmit(e) {
-    e.preventDefault();           // evitar recarga de página
-    setError("");                  // limpiar mensaje previo
+  const navigate = useNavigate();
 
-    // Validaciones simples
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError("");
+
     if (correo.trim() === "") {
       setError("Ingresa tu correo.");
       return;
@@ -21,23 +26,41 @@ export default function Login() {
       return;
     }
 
-    // Validación demo: credenciales de prueba
-    const testEmail = "rparra@duoc.cl";
-    const testPass = "123456";
+    setCargando(true);
+    try {
+      const payload = {
+        correo: correo,
+        contrasena: clave,
+      };
 
-    if (correo === testEmail && clave === testPass) {
-      setError("Sesión iniciada");
-      // redirigir al admin (puedes usar react-router o window.location)
-      window.location.href = "/admin";
-    } else {
-      setError("Correo o contraseña incorrectos.");
+      const resp = await axios.post(API_URL, payload);
+
+      // guardar sesión
+      localStorage.setItem("usuario", JSON.stringify(resp.data));
+
+      if (resp.data.rol === "admin") {
+    navigate("/admin");
+  } else {
+    navigate("/productos");
+  }
+
+    } catch (err) {
+      console.error(err);
+
+      if (err.response && err.response.status === 401) {
+        setError("Correo o contraseña incorrectos.");
+      } else {
+        setError("No se pudo conectar con el servidor.");
+      }
+    } finally {
+      setCargando(false);
     }
   }
 
   return (
     <main className="container login-page">
       <div className="login-brand">
-        <img src="src\assets\images\logo.png" alt="Logo" />
+        <img src="/logo.png" alt="Logo" />
         <h1 className="brand-name">Pastelería Mil Sabores</h1>
       </div>
 
@@ -63,13 +86,21 @@ export default function Login() {
           />
 
           <div className="inicio-sesion-registro">
-            <button type="submit" className="btn-login">Iniciar sesión</button>
-            <a href="/registro" className="btn-registrar">Regístrate ahora!</a>
+            <button type="submit" className="btn-login" disabled={cargando}>
+              {cargando ? "Ingresando..." : "Iniciar sesión"}
+            </button>
+            <Link className="btn-registrar" to="/registro">Registrarse</Link>
           </div>
 
-          <small id="login-estado" className={`estado ${error ? "" : "oculto"}`}>{error}</small>
+          <small
+            id="login-estado"
+            className={`estado ${error ? "" : "oculto"}`}
+          >
+            {error}
+          </small>
         </form>
       </section>
     </main>
   );
 }
+

@@ -1,6 +1,14 @@
-# Entrega 1
+# Entrega 3
 
 Se utilizo React + Vite como lo mostrado en clase y en el repositorio entregado por el profesor
+
+Se monto todo en un S3 con el siguiente Link
+
+http://proyecto-pasteleria-rparra.s3-website-us-east-1.amazonaws.com/
+
+El EC2 corresponde a la siguiente IP:
+
+http://54.80.154.229:8080/
 
 # Descripcion de entrega
 
@@ -37,3 +45,37 @@ Se creo un registro que contiene validaciones basicas.
 
 ![alt text](image-4.png)
 
+# CRUD
+
+```
+[Página Productos.jsx]
+        │
+        │  (1) Usuario hace clic en "Agregar al carrito"
+        ▼
+ [ProductCard.jsx]
+        │
+        │  (2) Llama a → addItem(producto)
+        ▼
+ [CartContext.jsx]  ←───  useCart()
+        │
+        │  (3) Guarda el producto en el estado global (cartItems)
+        │
+        │  (4) Usa useEffect() para guardar el carrito en localStorage
+        ▼
+ ┌──────────────────────────────┐
+ │ localStorage del navegador   │
+ │ ("cartItems")                │
+ └──────────────────────────────┘
+        │
+        │  (5) Cuando se abre la app o el usuario va al carrito
+        ▼
+ [Carrito.jsx]
+        │
+        │  (6) Lee los datos desde useCart()
+        │
+        │  (7) Muestra los productos, cantidades y total
+        ▼
+ (Usuario puede ↑ aumentar ↓ disminuir o eliminar)
+        │
+        └──────► Cambios se reflejan otra vez en CartContext y localStorage
+```
