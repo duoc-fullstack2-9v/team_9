@@ -1,6 +1,14 @@
-# Entrega 1
+# Entrega 3
 
 Se utilizo React + Vite como lo mostrado en clase y en el repositorio entregado por el profesor
+
+Se monto todo en un S3 con el siguiente Link
+
+http://proyecto-pasteleria-rparra.s3-website-us-east-1.amazonaws.com/
+
+El EC2 corresponde a la siguiente IP:
+
+http://54.80.154.229:8080/
 
 # Descripcion de entrega
 
